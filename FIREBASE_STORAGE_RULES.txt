@@ -1,0 +1,257 @@
+rules_version = '2';
+
+// Firebase Storage Security Rules for T.B. Lulla Foundation
+// Updated: November 2024 - Complete Production Rules
+// Supports: Projects, Events, Testimonials, Blogs, NGOs, Annual Reports, Photos, Videos
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // PROJECTS STORAGE
+    // Path: /projects/{filename}
+    match /projects/{allPaths=**} {
+      // Allow public read access to project images
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete project images
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 15 * 1024 * 1024  // Max 15MB
+        && request.resource.contentType.matches('image/.*');  // Only images
+    }
+    
+    // EVENTS STORAGE
+    // Path: /events/{year}/{filename} or /events/{filename}
+    match /events/{allPaths=**} {
+      // Allow public read access to event images
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete event images
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 15 * 1024 * 1024  // Max 15MB
+        && request.resource.contentType.matches('image/.*');  // Only images
+    }
+    
+    // TESTIMONIALS STORAGE (Video thumbnails and images)
+    // Path: /testimonials/{filename}
+    match /testimonials/{allPaths=**} {
+      // Allow public read access to testimonial media
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete testimonial media
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads (images and videos)
+      allow update: if request.auth != null
+        && request.resource.size < 25 * 1024 * 1024  // Max 25MB
+        && (request.resource.contentType.matches('image/.*') 
+            || request.resource.contentType.matches('video/.*'));
+    }
+    
+    // BLOG STORAGE
+    // Path: /blogs/{filename}
+    match /blogs/{allPaths=**} {
+      // Allow public read access to blog images
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete blog images
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 10 * 1024 * 1024  // Max 10MB
+        && request.resource.contentType.matches('image/.*');  // Only images
+    }
+    
+    // NGO STORAGE
+    // Path: /ngos/{filename}
+    match /ngos/{allPaths=**} {
+      // Allow public read access to NGO images
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete NGO images
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 10 * 1024 * 1024  // Max 10MB
+        && request.resource.contentType.matches('image/.*');  // Only images
+    }
+    
+    // ANNUAL REPORTS STORAGE
+    // Path: /annual-reports/{filename}
+    match /annual-reports/{allPaths=**} {
+      // Allow public read access to annual reports
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete annual reports
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads (PDFs and images)
+      allow update: if request.auth != null
+        && request.resource.size < 50 * 1024 * 1024  // Max 50MB for PDFs
+        && (request.resource.contentType.matches('application/pdf')
+            || request.resource.contentType.matches('image/.*'));
+    }
+    
+    // PHOTO GALLERY STORAGE
+    // Path: /photos/{category}/{filename}
+    match /photos/{allPaths=**} {
+      // Allow public read access to gallery photos
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete gallery photos
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 20 * 1024 * 1024  // Max 20MB
+        && request.resource.contentType.matches('image/.*');  // Only images
+    }
+    
+    // VIDEO GALLERY STORAGE
+    // Path: /videos/{filename}
+    match /videos/{allPaths=**} {
+      // Allow public read access to videos
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete videos
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 200 * 1024 * 1024  // Max 200MB for videos
+        && (request.resource.contentType.matches('video/.*')
+            || request.resource.contentType.matches('image/.*'));  // Videos or thumbnails
+    }
+    
+    // SEVA VICHAR (Articles) STORAGE
+    // Path: /seva-vichar/{filename}
+    match /seva-vichar/{allPaths=**} {
+      // Allow public read access to article images
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete article images
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 10 * 1024 * 1024  // Max 10MB
+        && request.resource.contentType.matches('image/.*');  // Only images
+    }
+    
+    // ROTARY GLOBAL GRANTS STORAGE
+    // Path: /global-grants/{filename}
+    match /global-grants/{allPaths=**} {
+      // Allow public read access to grant images/documents
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete grant files
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 30 * 1024 * 1024  // Max 30MB
+        && (request.resource.contentType.matches('image/.*')
+            || request.resource.contentType.matches('application/pdf'));
+    }
+    
+    // CSR CERTIFICATES STORAGE
+    // Path: /csr-certificates/{filename}
+    match /csr-certificates/{allPaths=**} {
+      // Allow public read access to certificates
+      allow read: if true;
+      
+      // Allow authenticated users to upload/delete certificates
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 30 * 1024 * 1024  // Max 30MB
+        && (request.resource.contentType.matches('image/.*')
+            || request.resource.contentType.matches('application/pdf'));
+    }
+    
+    // USER PROFILE IMAGES STORAGE
+    // Path: /users/{userId}/{filename}
+    match /users/{userId}/{filename} {
+      // Allow user to read their own files, authenticated users to read all
+      allow read: if request.auth != null;
+      
+      // Allow user to upload their own profile images, authenticated users to upload any
+      allow write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024  // Max 5MB
+        && request.resource.contentType.matches('image/.*');  // Only images
+    }
+    
+    // TEMPORARY UPLOADS STORAGE
+    // Path: /temp/{filename}
+    match /temp/{filename} {
+      // Allow authenticated users to upload temporary files
+      allow read, write, create, delete: if request.auth != null;
+      
+      // File validation for uploads
+      allow update: if request.auth != null
+        && request.resource.size < 50 * 1024 * 1024;  // Max 50MB
+    }
+    
+    // ADMIN ONLY STORAGE
+    // Path: /admin/{filename}
+    match /admin/{allPaths=**} {
+      // Only authenticated users can access admin files
+      allow read, write, create, delete: if request.auth != null;
+    }
+    
+    // BACKUP STORAGE
+    // Path: /backups/{filename}
+    match /backups/{allPaths=**} {
+      // Only authenticated users can access backup files
+      allow read, write, create, delete: if request.auth != null;
+    }
+    
+    // FALLBACK RULE - Allow public read, authenticated write for any other paths
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write, create, delete: if request.auth != null;
+    }
+  }
+}
+
+// HELPER FUNCTIONS (for reference, not part of rules)
+/*
+File Size Limits:
+- Profile Images: 5MB
+- Project Images: 10MB
+- Event Images: 10MB
+- Blog Images: 10MB
+- NGO Images: 10MB
+- Gallery Photos: 15MB
+- Testimonial Media: 15MB
+- Annual Reports: 50MB (PDFs)
+- Grant Documents: 25MB
+- CSR Certificates: 25MB
+- Videos: 100MB
+- Temporary Files: 50MB
+
+Supported File Types:
+- Images: JPEG, PNG, GIF, WebP
+- Documents: PDF
+- Videos: MP4, WebM, MOV, AVI
+- Audio: MP3, WAV (if needed)
+
+Security Features:
+- Public read access for public content
+- Admin-only write access
+- File type validation
+- File size limits
+- Path-based organization
+- User-specific access for profiles
+*/

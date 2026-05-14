@@ -1,0 +1,176 @@
+# Firebase Storage Rules Setup Guide
+# T.B. Lulla Foundation - Complete Implementation
+
+## 🔥 How to Apply Storage Rules
+
+### Step 1: Access Firebase Console
+1. Go to https://console.firebase.google.com
+2. Select your project: `admin-a6f7e`
+3. Navigate to "Storage" in the left sidebar
+4. Click on "Rules" tab
+
+### Step 2: Update Rules
+1. Copy the entire content from `FIREBASE_STORAGE_RULES.txt`
+2. Paste it into the Firebase Console Rules editor
+3. Click "Publish" to apply the rules
+
+### Step 3: Verify Rules Are Active
+1. Check the "Rules" tab shows your new rules
+2. Test upload from admin panel
+3. Verify public access from client side
+
+## 📁 Storage Structure Overview
+
+```
+gs://admin-a6f7e.firebasestorage.app/
+├── projects/
+│   ├── Project_Name_1_uuid.jpg
+│   ├── Project_Name_2_uuid.png
+│   └── ...
+├── events/
+│   ├── 2024/
+│   │   ├── Event_Title_2024_1_uuid.jpg
+│   │   └── Event_Title_2024_2_uuid.png
+│   ├── 2023/
+│   └── ...
+├── testimonials/
+│   ├── testimonial_1_uuid.jpg
+│   └── testimonial_video_uuid.mp4
+├── blogs/
+│   ├── blog_image_1_uuid.jpg
+│   └── ...
+├── ngos/
+│   ├── ngo_logo_1_uuid.png
+│   └── ...
+├── annual-reports/
+│   ├── annual_report_2024.pdf
+│   └── ...
+├── photos/
+│   ├── events/
+│   ├── projects/
+│   └── general/
+├── videos/
+│   ├── promotional_video.mp4
+│   └── ...
+├── seva-vichar/
+│   ├── article_image_1.jpg
+│   └── ...
+├── global-grants/
+│   ├── grant_document_1.pdf
+│   └── ...
+├── csr-certificates/
+│   ├── certificate_1.pdf
+│   └── ...
+├── users/
+│   ├── {userId}/
+│   │   └── profile_image.jpg
+│   └── ...
+├── temp/
+│   └── (auto-deleted after 24h)
+├── admin/
+│   └── (admin only files)
+└── backups/
+    └── (backup files)
+```
+
+## 🔒 Security Features
+
+### Public Access (Read Only):
+- ✅ Project images
+- ✅ Event images  
+- ✅ Testimonial media
+- ✅ Blog images
+- ✅ NGO images
+- ✅ Annual reports
+- ✅ Photo gallery
+- ✅ Video gallery
+- ✅ Seva Vichar images
+- ✅ Global grant documents
+- ✅ CSR certificates
+
+### Admin Only (Write/Delete):
+- ✅ All uploads and modifications
+- ✅ File deletion
+- ✅ Admin-specific storage
+- ✅ Backup management
+
+### User-Specific Access:
+- ✅ Profile images (own files only)
+- ✅ Temporary uploads
+
+## 📏 File Size Limits
+
+| Content Type | Max Size | File Types |
+|-------------|----------|------------|
+| Profile Images | 5MB | JPG, PNG, GIF, WebP |
+| Project Images | 10MB | JPG, PNG, GIF, WebP |
+| Event Images | 10MB | JPG, PNG, GIF, WebP |
+| Blog Images | 10MB | JPG, PNG, GIF, WebP |
+| NGO Images | 10MB | JPG, PNG, GIF, WebP |
+| Gallery Photos | 15MB | JPG, PNG, GIF, WebP |
+| Testimonials | 15MB | Images + Videos |
+| Annual Reports | 50MB | PDF, Images |
+| Grant Documents | 25MB | PDF, Images |
+| CSR Certificates | 25MB | PDF, Images |
+| Videos | 100MB | MP4, WebM, MOV, AVI |
+| Temporary Files | 50MB | Any type |
+
+## 🧪 Testing Your Rules
+
+### Test 1: Public Read Access
+```javascript
+// This should work (no auth required)
+const imageUrl = 'https://firebasestorage.googleapis.com/v0/b/admin-a6f7e.firebasestorage.app/o/projects%2Ftest.jpg?alt=media';
+```
+
+### Test 2: Admin Upload
+```javascript
+// This should work (with admin auth)
+const storageRef = ref(storage, 'projects/test.jpg');
+const uploadTask = uploadBytesResumable(storageRef, file);
+```
+
+### Test 3: Unauthorized Upload
+```javascript
+// This should fail (no auth)
+// Try uploading without authentication - should be denied
+```
+
+## 🚨 Common Issues & Solutions
+
+### Issue 1: "Permission Denied" on Upload
+**Solution:** Ensure user is authenticated and has admin privileges
+
+### Issue 2: "File Too Large" Error
+**Solution:** Check file size limits in the rules above
+
+### Issue 3: "Invalid File Type" Error
+**Solution:** Ensure file type matches allowed content types
+
+### Issue 4: Public Images Not Loading
+**Solution:** Verify read rules are set to `allow read: if true`
+
+## 🔄 Rule Updates
+
+When you need to update rules:
+1. Modify `FIREBASE_STORAGE_RULES.txt`
+2. Copy to Firebase Console
+3. Click "Publish"
+4. Test the changes
+
+## 📞 Support
+
+If you encounter issues:
+1. Check Firebase Console logs
+2. Verify authentication status
+3. Check file size and type
+4. Review browser console for errors
+
+## 🎯 Next Steps
+
+After applying these rules:
+1. ✅ Test admin uploads work
+2. ✅ Test client can view images
+3. ✅ Test file size limits
+4. ✅ Test unauthorized access is blocked
+5. ✅ Monitor usage in Firebase Console

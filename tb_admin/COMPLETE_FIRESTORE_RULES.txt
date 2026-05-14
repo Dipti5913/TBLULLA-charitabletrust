@@ -1,0 +1,105 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // BLOG SYSTEM
+    match /blogs/{document} {
+      allow read: if true; // Public can read published blogs
+      allow write: if request.auth != null; // Only admin can create/edit
+    }
+    
+    // EVENTS SYSTEM
+    match /events/{document} {
+      allow read: if true; // Public can view events
+      allow write: if request.auth != null; // Only admin can manage
+    }
+    
+    // PROJECTS SYSTEM
+    match /projects/{document} {
+      allow read: if true; // Public can view projects
+      allow write: if request.auth != null; // Only admin can manage
+    }
+    
+    // ROTARY GLOBAL GRANTS
+    match /globalGrants/{document} {
+      allow read: if true; // Public can view grants
+      allow write: if request.auth != null; // Only admin can manage
+    }
+    
+    // VIDEO GALLERY
+    match /videos/{document} {
+      allow read: if true; // Public can view videos
+      allow write: if request.auth != null; // Only admin can manage
+    }
+    
+    // ANNUAL REPORTS
+    match /annualReports/{document} {
+      allow read: if true; // Public can download reports
+      allow write: if request.auth != null; // Only admin can upload
+    }
+    
+    // NGO PARTNERSHIPS
+    match /ngos/{document} {
+      allow read: if true; // Public can view NGO partners
+      allow write: if request.auth != null; // Only admin can manage
+    }
+    
+    // CSR SYSTEM
+    match /csrProposals/{document} {
+      allow read: if request.auth != null; // Only admin can view proposals
+      allow write: if true; // Public can submit proposals
+      allow create: if true; // Allow public to create proposals
+    }
+    
+    match /csrFocusAreas/{document} {
+      allow read: if true; // Public can view focus areas
+      allow write: if request.auth != null; // Only admin can manage
+    }
+    
+    match /csrCertificates/{document} {
+      allow read: if true; // Public can view certificates
+      allow write: if request.auth != null; // Only admin can upload
+    }
+    
+    // TESTIMONIALS SYSTEM
+    match /testimonials/{document} {
+      allow read: if true; // Public can view testimonials
+      allow write: if request.auth != null; // Only admin can manage
+    }
+    
+    // CONTACT SYSTEM
+    match /contactMessages/{document} {
+      allow read: if request.auth != null; // Only admin can read messages
+      allow write: if true; // Public can send messages
+      allow create: if true; // Allow public to create messages
+    }
+    
+    // USER MANAGEMENT (if needed)
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // ADMIN SETTINGS
+    match /settings/{document} {
+      allow read: if true; // Public can read site settings
+      allow write: if request.auth != null; // Only admin can modify
+    }
+    
+    // SITE CONTENT (general)
+    match /content/{document} {
+      allow read: if true; // Public can read site content
+      allow write: if request.auth != null; // Only admin can modify
+    }
+    
+    // STATISTICS/ANALYTICS (if needed)
+    match /analytics/{document} {
+      allow read: if request.auth != null; // Only admin can view analytics
+      allow write: if request.auth != null; // Only admin can update
+    }
+    
+    // FALLBACK RULE - Admin access to everything
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

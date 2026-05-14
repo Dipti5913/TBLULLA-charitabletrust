@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* NGO Professional Design System - All colors, gradients, fonts, etc defined here. 
+All colors MUST be HSL for consistency and theming.
+*/
+
+@layer base {
+  :root {
+    /* Core NGO Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 210 15% 15%;
+
+    /* Professional NGO Blue Palette */
+    --primary: 215 85% 25%;           /* Deep professional blue */
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 215 85% 40%;     /* Lighter blue for accents */
+    --primary-glow: 215 85% 35%;      /* Glow effect variant */
+
+    /* Hope Orange Palette */
+    --hope: 25 95% 55%;               /* Warm hope orange */
+    --hope-foreground: 0 0% 98%;
+    --hope-light: 25 95% 70%;         /* Light hope orange */
+
+    /* Trust Green Palette */
+    --trust: 150 60% 35%;             /* Professional green */
+    --trust-foreground: 0 0% 98%;
+    --trust-light: 150 60% 50%;       /* Light trust green */
+
+    /* Neutral Professional Palette */
+    --card: 0 0% 100%;
+    --card-foreground: 210 15% 15%;
+    --card-accent: 215 25% 96%;       /* Subtle blue tint */
+
+    --secondary: 215 25% 96%;
+    --secondary-foreground: 210 15% 15%;
+
+    --muted: 215 20% 94%;
+    --muted-foreground: 210 10% 45%;
+
+    --accent: 215 30% 92%;
+    --accent-foreground: 210 15% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 20% 90%;
+    --input: 215 20% 90%;
+    --ring: 215 85% 25%;
+
+    --radius: 0.75rem;
+
+    /* Gradients for modern effects */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--hope)) 100%);
+    --gradient-hope: linear-gradient(135deg, hsl(var(--hope)), hsl(var(--hope-light)));
+    --gradient-trust: linear-gradient(135deg, hsl(var(--trust)), hsl(var(--trust-light)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card-accent)));
+
+    /* Professional shadows */
+    --shadow-soft: 0 4px 20px -2px hsl(var(--primary) / 0.1);
+    --shadow-medium: 0 8px 30px -4px hsl(var(--primary) / 0.15);
+    --shadow-strong: 0 15px 50px -8px hsl(var(--primary) / 0.25);
+    --shadow-glow: 0 0 40px hsl(var(--hope) / 0.3);
+
+    /* Animation timings */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Sidebar (if needed) */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode optimized for professional NGO presentation */
+    --background: 215 25% 8%;
+    --foreground: 0 0% 95%;
+
+    --card: 215 25% 10%;
+    --card-foreground: 0 0% 95%;
+    --card-accent: 215 25% 12%;
+
+    --primary: 215 85% 60%;
+    --primary-foreground: 215 25% 8%;
+    --primary-light: 215 85% 70%;
+    --primary-glow: 215 85% 65%;
+
+    --hope: 25 95% 65%;
+    --hope-foreground: 215 25% 8%;
+    --hope-light: 25 95% 75%;
+
+    --trust: 150 60% 55%;
+    --trust-foreground: 215 25% 8%;
+    --trust-light: 150 60% 65%;
+
+    --secondary: 215 25% 15%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 215 25% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 215 25% 18%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 215 25% 20%;
+    --input: 215 25% 20%;
+    --ring: 215 85% 60%;
+
+    /* Dark mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--hope)) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card-accent)));
+
+    /* Dark mode shadows */
+    --shadow-soft: 0 4px 20px -2px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 8px 30px -4px hsl(0 0% 0% / 0.4);
+    --shadow-strong: 0 15px 50px -8px hsl(0 0% 0% / 0.6);
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Professional NGO Component Styles */
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .card-professional {
+    @apply bg-card border border-border rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-medium)] transition-[var(--transition-smooth)];
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-medium)] transition-[var(--transition-smooth)];
+  }
+
+  .btn-hope {
+    background: var(--gradient-hope);
+    @apply text-hope-foreground shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)] hover:scale-105;
+  }
+
+  .btn-trust {
+    background: var(--gradient-trust);
+    @apply text-trust-foreground shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-medium)] transition-[var(--transition-smooth)];
+  }
+
+  .section-padding {
+    @apply py-16 px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .navbar-glass {
+    @apply bg-background/80 backdrop-blur-md border-b border-border/50;
+  }
+
+  .hover-lift {
+    @apply hover:transform hover:-translate-y-1 transition-[var(--transition-smooth)];
+  }
+
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+
+  /* Remove all underlines from navigation and project links */
+  .no-underline, 
+  nav a, 
+  .navbar a,
+  .project-nav a,
+  .project-link,
+  [data-project-link] {
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+
+  /* Ensure no underlines on hover states */
+  .no-underline:hover, 
+  nav a:hover, 
+  .navbar a:hover,
+  .project-nav a:hover,
+  .project-link:hover,
+  [data-project-link]:hover {
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+}

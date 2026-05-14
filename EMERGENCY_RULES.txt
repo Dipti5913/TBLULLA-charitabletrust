@@ -1,0 +1,19 @@
+// EMERGENCY Firebase Storage Rules
+// Copy this EXACTLY to Firebase Console → Storage → Rules
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
+// Instructions:
+// 1. Go to https://console.firebase.google.com
+// 2. Select project: admin-a6f7e  
+// 3. Storage → Rules
+// 4. Delete everything and paste above rules
+// 5. Click Publish
+// 6. Test immediately

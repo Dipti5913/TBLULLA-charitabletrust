@@ -1,0 +1,20 @@
+rules_version = '2';
+
+// EMERGENCY Firebase Storage Rules - Copy This Exactly
+// Use this if nothing else works
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
+// Instructions:
+// 1. Go to Firebase Console
+// 2. Storage → Rules
+// 3. Delete ALL existing rules
+// 4. Copy and paste ONLY the above rules
+// 5. Click Publish
+// 6. Test immediately

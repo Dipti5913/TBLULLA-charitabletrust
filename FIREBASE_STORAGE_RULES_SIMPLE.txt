@@ -1,0 +1,15 @@
+rules_version = '2';
+
+// SIMPLE Firebase Storage Rules - Use This for Testing First
+// Copy this to Firebase Console → Storage → Rules
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow everyone to read and write (TESTING ONLY)
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
+// After testing works, use the complete rules from FIREBASE_STORAGE_RULES.txt
