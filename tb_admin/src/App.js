@@ -118,7 +118,7 @@ const AppContent = () => {
   }
 
   return (
-    <Router basename="/admin">
+    <Router>
       <Routes>
         <Route 
           path="/*" 
